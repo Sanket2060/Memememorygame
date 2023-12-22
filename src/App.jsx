@@ -17,6 +17,8 @@ import {BhupendraJogi,
     Thalaforareason} from './audio/audio.js'
 
 function App() {
+  const [lastMeme,setLastMeme]=useState();
+  const [presentMeme,setPresentMeme]=useState();
   const [shuffle1,setShuffle1]=useState([]);
   const [shuffle2,setShuffle2]=useState([]);
 
@@ -25,6 +27,22 @@ function App() {
         .sort((a, b) => a.sort - b.sort)
         .map((a) => a.value); 
 }; 
+
+  const SetLastMemeFunct=(Lastmeme)=>{
+      setLastMeme(Lastmeme)
+
+  }
+  const setPresentMemeFunct=(Presentmemeid)=>{
+    setLastMeme(presentMeme);
+    setPresentMeme(Presentmemeid);
+  }
+
+  useEffect(()=>{
+    if (presentMeme==lastMeme){
+      
+    }
+  },[presentMeme])
+  
 
 
   useEffect(()=>{
@@ -83,16 +101,33 @@ function App() {
         <div className="game flex w-[95vw] h-[110vw]  border border-blue-700 flex-wrap  justify-center items-center">
           {
            shuffle1?shuffle1.map((obj)=>{
+                //  console.log("id:",obj.id);
               // console.log("obj",obj);
               // console.log('memeName',obj.memeName);
-            return  <Singlememe image={`${obj.memeImage}`} audio={`${obj.memeSound}`} id={`${obj.id}`}/>
+            return  <Singlememe 
+            image={`${obj.memeImage}`} 
+            audio={`${obj.memeSound}`} 
+            id={`${obj.id}`} 
+            SetLastMemeFunct={SetLastMemeFunct} 
+            SetPresentMemeFunct={setPresentMemeFunct}
+            />
             }):null
           }
+
+
+
           {
-            shuffle2?shuffle2.map((obj,index)=>{
+            shuffle2?shuffle2.map((obj)=>{
+              // console.log("id:",obj.id);
               // console.log("obj",obj);
               // console.log('memeName',obj.memeName);
-            return  <Singlememe image={`${obj.memeImage}`} audio={`${obj.memeSound}`} id={`${obj.id}`}/>
+             return <Singlememe 
+              image={`${obj.memeImage}`} 
+              audio={`${obj.memeSound}`} 
+              id={`${obj.id}`} 
+              SetLastMemeFunct={SetLastMemeFunct} 
+              SetPresentMemeFunct={setPresentMemeFunct} 
+              />
             }):null
 
           }

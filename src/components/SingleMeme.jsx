@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-function Singlememe({image,audio,setLastMemeFunc,setPresentMemeFunc,id}) {
+function Singlememe({image,audio,setLastMemeFunc,SetPresentMemeFunc,id},forRefs) {
   const memeRef=useRef();
   const audioRef=useRef();
   const showImage=()=>{
@@ -14,7 +14,7 @@ function Singlememe({image,audio,setLastMemeFunc,setPresentMemeFunc,id}) {
   }
 
     const memeClicked=(value)=>{
-      setPresentMemeFunc(value);
+      SetPresentMemeFunc(value);
 
     } 
   return (
@@ -32,9 +32,11 @@ function Singlememe({image,audio,setLastMemeFunc,setPresentMemeFunc,id}) {
   // }}
   >
     <audio src={`${audio}`} ref={audioRef} ></audio>
-    <img src={`${image}`} className='h-full w-auto max-w-[100%] invisible' ref={memeRef}  />
+    <div className="imagewrap w-fit h-fit" ref={forRefs}>
+    <img src={`${image}`} className='h-full w-auto max-w-[100%] invisible' ref={memeRef}   />
+    </div>
   </div>
   )
 }
 
-export default Singlememe
+export default React.forwardRef(Singlememe)

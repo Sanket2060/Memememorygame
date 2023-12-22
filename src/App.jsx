@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaGithub } from "react-icons/fa";
 import './App.css'
 import Singlememe from './components/Singlememe';
@@ -17,8 +17,9 @@ import {BhupendraJogi,
     Thalaforareason} from './audio/audio.js'
 
 function App() {
+  const forRefs = Array.from({ length: 12 }, () => useRef(null));
   const [lastMeme,setLastMeme]=useState();
-  const [presentMeme,setPresentMeme]=useState();
+  const [presentMeme,setPresentMeme]=useState(105);
   const [shuffle1,setShuffle1]=useState([]);
   const [shuffle2,setShuffle2]=useState([]);
 
@@ -28,22 +29,14 @@ function App() {
         .map((a) => a.value); 
 }; 
 
-  const SetLastMemeFunct=(Lastmeme)=>{
+  const SetLastMemeFunc=(Lastmeme)=>{
       setLastMeme(Lastmeme)
 
   }
-  const setPresentMemeFunct=(Presentmemeid)=>{
+  const setPresentMemeFunc=(Presentmemeid)=>{
     setLastMeme(presentMeme);
     setPresentMeme(Presentmemeid);
   }
-
-  useEffect(()=>{
-    if (presentMeme==lastMeme){
-      
-    }
-  },[presentMeme])
-  
-
 
   useEffect(()=>{
     const memes=[
@@ -89,7 +82,21 @@ function App() {
           setShuffle2(shuffle(memes));
   
   },[])
-    
+
+  useEffect(()=>{
+    if (presentMeme==lastMeme){
+        console.log("Inside equal condition");
+        forRefs[presentMeme].current.classList.remove('invisible');
+        forRefs[presentMeme].current.classList.add('pointer-events-none');
+    }
+  },[presentMeme,lastMeme])
+ 
+  useEffect(()=>{
+    console.log('Last meme and present meme:',lastMeme,presentMeme)
+  },[presentMeme,lastMeme])
+  // useEffect(()=>{
+  //   console.log('Present meme:',presentMeme)
+  // },[presentMeme,lastMeme])
   return (
     <>
       
@@ -100,7 +107,7 @@ function App() {
         </header>
         <div className="game flex w-[95vw] h-[110vw]  border border-blue-700 flex-wrap  justify-center items-center">
           {
-           shuffle1?shuffle1.map((obj)=>{
+           shuffle1?shuffle1.map((obj,index)=>{
                 //  console.log("id:",obj.id);
               // console.log("obj",obj);
               // console.log('memeName',obj.memeName);
@@ -108,8 +115,10 @@ function App() {
             image={`${obj.memeImage}`} 
             audio={`${obj.memeSound}`} 
             id={`${obj.id}`} 
-            SetLastMemeFunct={SetLastMemeFunct} 
-            SetPresentMemeFunct={setPresentMemeFunct}
+            SetLastMemeFunc={SetLastMemeFunc} 
+            SetPresentMemeFunc={setPresentMemeFunc}
+            ref={forRefs[obj.id]} 
+            key={index}
             />
             }):null
           }
@@ -117,7 +126,7 @@ function App() {
 
 
           {
-            shuffle2?shuffle2.map((obj)=>{
+            shuffle2?shuffle2.map((obj,index)=>{
               // console.log("id:",obj.id);
               // console.log("obj",obj);
               // console.log('memeName',obj.memeName);
@@ -125,8 +134,10 @@ function App() {
               image={`${obj.memeImage}`} 
               audio={`${obj.memeSound}`} 
               id={`${obj.id}`} 
-              SetLastMemeFunct={SetLastMemeFunct} 
-              SetPresentMemeFunct={setPresentMemeFunct} 
+              SetLastMemeFunc={SetLastMemeFunc} 
+              SetPresentMemeFunc={setPresentMemeFunc} 
+              ref={forRefs[obj.id]} 
+              key={index}
               />
             }):null
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaGithub } from "react-icons/fa";
 import './App.css'
-import Singlememe from './components/Singlememe';
+import Singlememe from './components/SingleMeme';
 import {BhupendraJogi,
   JaatPaatMai,
   JustlookingLikeAWow,

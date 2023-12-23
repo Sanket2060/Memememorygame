@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    
     extend: {
+      screens:{
+        "smalltosm":"450px"   
+      },
       fontFamily: {
         Rubik: ['"Rubik Scribble"']
       }

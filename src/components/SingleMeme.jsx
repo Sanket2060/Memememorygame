@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-function Singlememe({image,audio,setLastMemeFunc,SetPresentMemeFunc,id,key,myIndex},forRefs) {
+function Singlememe({image,audio,setLastMemeFunc,SetPresentMemeFunc,id,key,myIndex},forRefs,pointerRefs) {
   // const memeRef=useRef();
   const audioRef=useRef();
   const showImage=()=>{
@@ -22,7 +22,7 @@ function Singlememe({image,audio,setLastMemeFunc,SetPresentMemeFunc,id,key,myInd
     //   console.log("Key:",key);
     // })
   return (
-   <div className="square bg-black w-[22vw] border border-black  h-[22vw] m-3 hover:cursor-pointer" 
+   <div className="square bg-black w-[22vw] border border-black  h-[22vw] lg:w-[17vw] lg:h-[17vw]  xl:w-[14vw] xl-h:[14vw]  m-3 hover:cursor-pointer"  
    onClick={()=>{
     showImage();
     console.log("myIndex",myIndex);

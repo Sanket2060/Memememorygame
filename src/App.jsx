@@ -134,18 +134,20 @@ function App() {
       console.log("Inside found memes 6")
       setHighScore(count);
       setIsGameOver(true);
-         }   
+      localStorage.setItem("highScore",`${highScore}`)
+    }   
   }, [foundMemes]);
 
   const newGamefun=()=>{
-    setNewGame(true);
-    setIsGameOver(false);
-    setCount(0);
+    window.location.reload(false);
+    // setNewGame(true);
+    // setIsGameOver(false);
+    // setCount(0);
   }
 
-  useEffect(()=>{
-    localStorage.setItem("highScore",`${highScore}`)
-  },[highScore]);
+  // useEffect(()=>{
+    // localStorage.setItem("highScore",`${highScore}`)
+  // },[highScore]);
 
   useEffect(()=>{
   const myhighscore= localStorage.getItem("highscore");
@@ -213,7 +215,7 @@ function App() {
         </div>
         <div className="scorecard bg-black text-center text-2xl px-4 w-full py-4 h-fit fixed bottom-0 ">
           <div className="count">Count:{count}</div>
-          <div className="highscore">Best score:{highScore}</div>
+          {/* <div className="highscore">Best score:{highScore}</div> */}
           {isGameOver?<div className='newgame hover:cursor-pointer' onClick={newGamefun}>New game</div>:null}
         </div>
       </div>
